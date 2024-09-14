@@ -58,7 +58,9 @@ function M.show(position)
 		0,
 		100,
 		vim.schedule_wrap(function()
-			vim.api.nvim_buf_set_lines(spinner_buf, 0, -1, false, { config.spinner_frames[spinner_index] })
+			if vim.api.nvim_buf_is_valid(spinner_buf) then
+				vim.api.nvim_buf_set_lines(spinner_buf, 0, -1, false, { config.spinner_frames[spinner_index] })
+			end
 			spinner_index = spinner_index % #config.spinner_frames + 1
 		end)
 	)
